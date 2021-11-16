@@ -1,8 +1,9 @@
 import React, {useState} from "react"
 
+//Agregar id a la lista de tareas.
 const lista = [
-    {tarea:'salir a comer', complete:false},
-    {tarea:'salir a jugar furbol', complete: false},
+    {id: 1, tarea:'salir a comer', complete:false},
+    {id: 2, tarea:'salir a jugar furbol', complete: false},
 ]
 
 const Formulario = () => {
@@ -24,15 +25,19 @@ const Formulario = () => {
         console.log('Feliciades, To-do enviado')
         console.log(datos)
     }
+    // Agregue una función para eliminar una tarea de la lista.
+    const handleDeleteATask = (id) => {
+        setTodo(todo.filter((item) => item.id !== id))
+    }
 
-    const newList = lista.map((item, i) =>
-<li key={i} className='mt-3'>{item.tarea}
-    <button type='button' onClick={()=> lista.filter((item) => item.complete !== false)}
-        >
-        Eliminar
-    </button>
-</li>
-)
+    // Ya que las tareas tienen id, ya no es necesario utilizar el indice del arreglo
+    const newList = todo.map((item) => (
+        <li key={item.id} className='mt-3'>{item.tarea}
+            <button type='button' onClick={()=> handleDeleteATask(item.id)}>
+                Eliminar
+            </button>
+        </li>
+    ))
 
 
     return (
